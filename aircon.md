@@ -22,7 +22,7 @@
 * 前9位固定: `7E 7E FF 00 11 0D 00 00 82`
 * 10位开关: `00 - close, FF - open`
 * 11位模式: `CE - hot, 3F - cool`
-* 12位温度: `10 - 19 , 1A, 1B, 1D, 1E. temperature from 16 - 30,`
+* 12位温度: `10 - 19 , 1A, 1B, 1C, 1D, 1E. temperature from 16 - 30,`
 * 13位固定: `40 和服务端13位保持一致`
 * 14位风速: `CE - auto, BD - high, 7E - middle, 3F - low`
 * 15-18位固定: `08 00 00 00`
