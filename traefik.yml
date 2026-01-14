@@ -1,0 +1,13 @@
+http:
+  routers:
+    api-signalk:
+      entryPoints:
+        - http
+      rule: 'Host(`192.168.10.10`) && PathPrefix(`/plugins/signalk-node-red/`)'
+      service: api
+      tls: true
+  services:
+    api:
+      loadBalancer:
+        servers:
+          - url: http://nginx

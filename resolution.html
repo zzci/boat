@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统分辨率信息</title>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            touch-action: none;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            max-width: 42rem;
+            width: 100%;
+            margin: 1rem;
+        }
+
+        .title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1f2937;
+        }
+
+        .section {
+            background-color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-text {
+            color: #4b5563;
+        }
+
+        .info-value {
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .resolution-visual {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .resolution-box {
+            display: inline-block;
+            background: #3b82f6;
+            margin: 1rem auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .resolution-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+        }
+
+        .aspect-ratio {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .refresh-button {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .refresh-button:hover {
+            background: #2563eb;
+        }
+
+        .refresh-button:active {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">系统分辨率信息</h1>
+
+        <!-- 物理分辨率 -->
+        <div class="section">
+            <h2 class="section-title">物理分辨率</h2>
+            <div class="grid">
+                <div class="info-group">
+                    <p class="info-text">屏幕宽度：<span id="physicalWidth" class="info-value"></span></p>
+                    <p class="info-text">屏幕高度：<span id="physicalHeight" class="info-value"></span></p>
+                </div>
+                <div class="info-group">
+                    <p class="info-text">设备像素比：<span id="devicePixelRatio" class="info-value"></span></p>
+                    <p class="info-text">色深：<span id="colorDepth" class="info-value"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 逻辑分辨率 -->
+        <div class="section">
+            <h2 class="section-title">逻辑分辨率</h2>
+            <div class="grid">
+                <div class="info-group">
+                    <p class="info-text">可用宽度：<span id="availWidth" class="info-value"></span></p>
+                    <p class="info-text">可用高度：<span id="availHeight" class="info-value"></span></p>
+                </div>
+                <div class="info-group">
+                    <p class="info-text">窗口宽度：<span id="windowWidth" class="info-value"></span></p>
+                    <p class="info-text">窗口高度：<span id="windowHeight" class="info-value"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分辨率可视化 -->
+        <div class="section">
+            <h2 class="section-title">分辨率可视化</h2>
+            <div class="resolution-visual">
+                <div id="resolutionBox" class="resolution-box">
+                    <div class="resolution-label" id="resolutionLabel"></div>
+                </div>
+                <div class="aspect-ratio" id="aspectRatio"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-button" onclick="updateResolutionInfo()">刷新信息</button>
+
+    <script>
+        function updateResolutionInfo() {
+            // 物理分辨率信息
+            document.getElementById('physicalWidth').textContent = window.screen.width + 'px';
+            document.getElementById('physicalHeight').textContent = window.screen.height + 'px';
+            document.getElementById('devicePixelRatio').textContent = window.devicePixelRatio;
+            document.getElementById('colorDepth').textContent = window.screen.colorDepth + '位';
+
+            // 逻辑分辨率信息
+            document.getElementById('availWidth').textContent = window.screen.availWidth + 'px';
+            document.getElementById('availHeight').textContent = window.screen.availHeight + 'px';
+            document.getElementById('windowWidth').textContent = window.innerWidth + 'px';
+            document.getElementById('windowHeight').textContent = window.innerHeight + 'px';
+
+            // 更新分辨率可视化
+            const box = document.getElementById('resolutionBox');
+            const label = document.getElementById('resolutionLabel');
+            const aspectRatio = document.getElementById('aspectRatio');
+
+            // 计算可视化的尺寸（保持比例但限制最大尺寸）
+            const maxSize = 300;
+            const ratio = window.screen.width / window.screen.height;
+            let width, height;
+
+            if (ratio > 1) {
+                width = maxSize;
+                height = maxSize / ratio;
+            } else {
+                height = maxSize;
+                width = maxSize * ratio;
+            }
+
+            box.style.width = width + 'px';
+            box.style.height = height + 'px';
+            label.textContent = `${window.screen.width} × ${window.screen.height}`;
+
+            // 计算并显示宽高比
+            const gcd = (a, b) => b ? gcd(b, a % b) : a;
+            const divisor = gcd(window.screen.width, window.screen.height);
+            const aspectRatioText = `${window.screen.width / divisor}:${window.screen.height / divisor}`;
+            aspectRatio.textContent = `宽高比 ${aspectRatioText}`;
+        }
+
+        // 初始化
+        updateResolutionInfo();
+
+        // 监听窗口大小变化
+        window.addEventListener('resize', updateResolutionInfo);
+
+        // 监听设备方向变化
+        window.addEventListener('orientationchange', updateResolutionInfo);
+    </script>
+</body>
+</html>

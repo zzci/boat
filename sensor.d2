@@ -1,0 +1,26 @@
+p : power 12v{
+    L
+    N
+}
+
+ao: AO {
+    A
+    C
+}
+
+ai: AI {
+    A
+    C
+}
+
+s : Sensor {
+    A
+    B
+}
+
+
+ao.a -> ai.A
+ao.c -> ai.c
+
+ao.a -> s.A
+ao.c -> s.B
